@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-streamlit>=1.35.0
+﻿streamlit>=1.35.0
 transformers>=4.44.0
 torch>=2.0.0
 accelerate>=0.30.0
@@ -7,17 +6,3 @@ datasets
 sentencepiece
 pdfplumber
 huggingface_hub
-=======
-transformers
-torch
-datasets
-sentencepiece
-accelerate
-evaluate
-rouge-score
-bert-score
-pdfplumber
-streamlit
-sumy
-PyPDF2
->>>>>>> 273dcd41279759bf77f4e5d4c52464f035c48e21
