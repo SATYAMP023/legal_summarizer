@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # app.py
 
 import streamlit as st
@@ -634,7 +633,6 @@ with tab_history:
             save_history([])
             st.success("All history cleared.")
             st.rerun()
-=======
 import streamlit as st
 from src.inference.summarize import summarize_long
 from src.utils.pdf_loader import extract_text_from_pdf
