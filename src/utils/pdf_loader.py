@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # src/utils/pdf_loader.py
 
 import pdfplumber
@@ -20,7 +19,6 @@ def extract_text_from_pdf(uploaded_file) -> str:
         raise RuntimeError(f"Failed to extract PDF text: {e}")
 
     return text.strip()
-=======
 import PyPDF2
 
 def extract_text_from_pdf(file):
@@ -32,4 +30,3 @@ def extract_text_from_pdf(file):
         text += page.extract_text() + "\n"
 
     return text
->>>>>>> 273dcd41279759bf77f4e5d4c52464f035c48e21
