@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # src/inference/summarize.py
 
 import torch
@@ -71,7 +70,6 @@ def summarize_long(text: str) -> str:
 
     combined = " ".join(chunk_summaries)
     return summarize_chunk(combined)
-=======
 import torch
 from transformers import LEDTokenizer, LEDForConditionalGeneration
 from src.preprocessing.chunker import split_into_chunks
@@ -183,4 +181,3 @@ def summarize_long(text):
     )
 
     return final_summary
->>>>>>> 273dcd41279759bf77f4e5d4c52464f035c48e21
