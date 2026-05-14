@@ -734,4 +734,3 @@ elif option == "PDF":
 
             except Exception as e:
                 st.error(f"❌ Error during PDF summarization: {str(e)}")
->>>>>>> 273dcd41279759bf77f4e5d4c52464f035c48e21
