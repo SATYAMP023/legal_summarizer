@@ -1,0 +1,11 @@
+﻿legal_led_model/
+legal_led_model.zip
+*.bin
+*.safetensors
+*.zip
+__pycache__/
+*.pyc
+*.pyd
+case_history.json
+venv/
+.env
