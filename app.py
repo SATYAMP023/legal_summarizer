@@ -8,37 +8,61 @@ import re
 import json
 import os
 from datetime import datetime
+import gspread
+from google.oauth2.service_account import Credentials
 
 # ═══════════════════════════════════════════════════════════════════════
 # STORAGE
 # ═══════════════════════════════════════════════════════════════════════
 
-HISTORY_FILE = "case_history.json"
+HSHEET_NAME = "LexBrief History"
+
+def get_sheet():
+    creds = Credentials.from_service_account_info(
+        st.secrets["gcp_service_account"],
+        scopes=[
+            "https://spreadsheets.google.com/feeds",
+            "https://www.googleapis.com/auth/drive"
+        ]
+    )
+    client = gspread.authorize(creds)
+    return client.open(SHEET_NAME).sheet1
 
 def load_history():
-    if os.path.exists(HISTORY_FILE):
-        with open(HISTORY_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
-    return []
-
-def save_history(history):
-    with open(HISTORY_FILE, "w", encoding="utf-8") as f:
-        json.dump(history, f, ensure_ascii=False, indent=2)
+    try:
+        rows = get_sheet().get_all_records()
+        return list(reversed(rows))
+    except Exception as e:
+        st.warning(f"Could not load history: {e}")
+        return []
 
 def add_to_history(record):
-    history = load_history()
-    for existing in history:
-        if (existing.get("case_name") == record.get("case_name") and
-                existing.get("date") == record.get("date")):
-            return
-    history.insert(0, record)
-    save_history(history)
+    try:
+        get_sheet().append_row([
+            record.get("saved_at",""),
+            record.get("source",""),
+            record.get("case_name",""),
+            record.get("court",""),
+            record.get("date",""),
+            record.get("citation",""),
+            record.get("appeal_no",""),
+            record.get("final_decision",""),
+            record.get("main_issue",""),
+            record.get("background",""),
+            record.get("findings",""),
+            record.get("raw_summary",""),
+        ])
+    except Exception as e:
+        st.warning(f"Could not save to history: {e}")
 
 def delete_from_history(index):
-    history = load_history()
-    if 0 <= index < len(history):
-        history.pop(index)
-        save_history(history)
+    try:
+        get_sheet().delete_rows(index + 2)
+    except Exception as e:
+        st.warning(f"Could not delete: {e}")
+
+def save_history(data):
+    pass  # not needed with Sheets
 
 # ═══════════════════════════════════════════════════════════════════════
 # HELPERS
