@@ -15,7 +15,7 @@ from google.oauth2.service_account import Credentials
 # STORAGE
 # ═══════════════════════════════════════════════════════════════════════
 
-HSHEET_NAME = "LexBrief History"
+SHEET_NAME = "LexBrief History"
 
 def get_sheet():
     creds = Credentials.from_service_account_info(
@@ -39,18 +39,18 @@ def load_history():
 def add_to_history(record):
     try:
         get_sheet().append_row([
-            record.get("saved_at",""),
-            record.get("source",""),
-            record.get("case_name",""),
-            record.get("court",""),
-            record.get("date",""),
-            record.get("citation",""),
-            record.get("appeal_no",""),
-            record.get("final_decision",""),
-            record.get("main_issue",""),
-            record.get("background",""),
-            record.get("findings",""),
-            record.get("raw_summary",""),
+            record.get("saved_at", ""),
+            record.get("source", ""),
+            record.get("case_name", ""),
+            record.get("court", ""),
+            record.get("date", ""),
+            record.get("citation", ""),
+            record.get("appeal_no", ""),
+            record.get("final_decision", ""),
+            record.get("main_issue", ""),
+            record.get("background", ""),
+            record.get("findings", ""),
+            record.get("raw_summary", ""),
         ])
     except Exception as e:
         st.warning(f"Could not save to history: {e}")
@@ -62,7 +62,7 @@ def delete_from_history(index):
         st.warning(f"Could not delete: {e}")
 
 def save_history(data):
-    pass  # not needed with Sheets
+    pass
 
 # ═══════════════════════════════════════════════════════════════════════
 # HELPERS
