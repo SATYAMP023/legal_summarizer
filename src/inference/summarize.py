@@ -3,18 +3,25 @@
 import streamlit as st
 import torch
 from transformers import LEDTokenizer, LEDForConditionalGeneration
+import os
 
 MODEL_PATH = "satyamp555/legal-led-summarizer"
 
 MAX_INPUT_TOKENS  = 1024
 MAX_OUTPUT_TOKENS = 256
 
-
-@st.cache_resource(show_spinner="Loading AI model... please wait.")
+@st.cache_resource(show_spinner="Loading AI model...")
 def load_model():
-    tokenizer = LEDTokenizer.from_pretrained(MODEL_PATH)
-    model = LEDForConditionalGeneration.from_pretrained(MODEL_PATH)
-    device = torch.device("cpu")   # Streamlit Cloud has no GPU
+    token = os.environ.get("HF_TOKEN", None)
+    tokenizer = LEDTokenizer.from_pretrained(
+        "satyamp555/legal-led-summarizer",
+        token=token
+    )
+    model = LEDForConditionalGeneration.from_pretrained(
+        "satyamp555/legal-led-summarizer",
+        token=token
+    )
+    device = torch.device("cpu")
     model.to(device)
     model.eval()
     return tokenizer, model
