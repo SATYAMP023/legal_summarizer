@@ -3,24 +3,19 @@
 import streamlit as st
 import torch
 from transformers import LEDTokenizer, LEDForConditionalGeneration
-import os
 
 MODEL_PATH = "satyamp555/legal-led-summarizer"
 
 MAX_INPUT_TOKENS  = 1024
 MAX_OUTPUT_TOKENS = 256
 
-@st.cache_resource(show_spinner="Loading AI model...")
+@st.cache_resource(show_spinner="Loading AI model... please wait.")
 def load_model():
-    token = os.environ.get("HF_TOKEN", None)
-    tokenizer = LEDTokenizer.from_pretrained(
-        "satyamp555/legal-led-summarizer",
-        token=token
-    )
-    model = LEDForConditionalGeneration.from_pretrained(
-        "satyamp555/legal-led-summarizer",
-        token=token
-    )
+    # Read token from Streamlit secrets
+    token = st.secrets.get("HF_TOKEN", None)
+
+    tokenizer = LEDTokenizer.from_pretrained(MODEL_PATH, token=token)
+    model = LEDForConditionalGeneration.from_pretrained(MODEL_PATH, token=token)
     device = torch.device("cpu")
     model.to(device)
     model.eval()
@@ -61,7 +56,6 @@ def summarize_long(text: str) -> str:
     if len(tokens) <= MAX_INPUT_TOKENS:
         return summarize_chunk(text, tokenizer, model, device)
 
-    # Chunk long documents
     words = text.split()
     chunk_word_size = 600
     overlap = 50
