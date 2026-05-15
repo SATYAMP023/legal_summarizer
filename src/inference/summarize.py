@@ -11,11 +11,8 @@ MAX_OUTPUT_TOKENS = 256
 
 @st.cache_resource(show_spinner="Loading AI model... please wait.")
 def load_model():
-    # Read token from Streamlit secrets
-    token = st.secrets.get("HF_TOKEN", None)
-
-    tokenizer = LEDTokenizer.from_pretrained(MODEL_PATH, token=token)
-    model = LEDForConditionalGeneration.from_pretrained(MODEL_PATH, token=token)
+    tokenizer = LEDTokenizer.from_pretrained(MODEL_PATH)
+    model = LEDForConditionalGeneration.from_pretrained(MODEL_PATH)
     device = torch.device("cpu")
     model.to(device)
     model.eval()
