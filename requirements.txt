@@ -8,16 +8,3 @@ pdfplumber
 huggingface_hub
 gspread
 google-auth
-
-@"
-streamlit>=1.35.0
-transformers>=4.44.0
-torch>=2.0.0
-accelerate>=0.30.0
-datasets
-sentencepiece
-pdfplumber
-huggingface_hub
-gspread
-google-auth
-"@ | Out-File -FilePath requirements.txt -Encoding utf8
