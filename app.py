@@ -236,7 +236,7 @@ with st.sidebar:
 
     admin_input = st.text_input("Admin Password", type="password", label_visibility="collapsed",placeholder="Enter admin password...")
 
-    is_admin = (admin_input == st.secrets.get("ADMIN_PASSWORD", ""))
+    is_admin = bool(admin_input) and (admin_input == st.secrets.get("ADMIN_PASSWORD", ""))
 
     if admin_input and not is_admin:
         st.markdown("<div style='font-size:0.75rem;color:#c0392b'>Incorrect password</div>", unsafe_allow_html=True)
