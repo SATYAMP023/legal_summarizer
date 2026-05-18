@@ -243,7 +243,12 @@ with st.sidebar:
 
     if is_admin:
         st.markdown("<div style='font-size:0.75rem;color:#1e7e34'>✓ Admin mode active</div>", unsafe_allow_html=True)
-    st.write(dict(st.secrets))  # temporary debug line
+
+    # Temporary debug — add right after admin_input line
+    st.write("Secret exists:", "ADMIN_PASSWORD" in st.secrets)
+    st.write("Input value:", repr(admin_input))
+    st.write("Secret value:", repr(st.secrets.get("ADMIN_PASSWORD", "NOT FOUND")))
+
 # ═══════════════════════════════════════════════════════════════════════
 # HERO
 # ═══════════════════════════════════════════════════════════════════════
