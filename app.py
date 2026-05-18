@@ -231,6 +231,19 @@ with st.sidebar:
         Indian legal judgments
     </div>""", unsafe_allow_html=True)
 
+    st.markdown("---")
+    st.markdown("<div style='font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;color:#4a6a82;font-weight:600;margin-bottom:0.8rem'>Admin Access</div>",unsafe_allow_html=True)
+
+    admin_input = st.text_input("Admin Password", type="password", label_visibility="collapsed",placeholder="Enter admin password...")
+
+    is_admin = (admin_input == st.secrets.get("ADMIN_PASSWORD", ""))
+
+    if admin_input and not is_admin:
+        st.markdown("<div style='font-size:0.75rem;color:#c0392b'>Incorrect password</div>", unsafe_allow_html=True)
+
+    if is_admin:
+        st.markdown("<div style='font-size:0.75rem;color:#1e7e34'>✓ Admin mode active</div>", unsafe_allow_html=True)
+
 # ═══════════════════════════════════════════════════════════════════════
 # HERO
 # ═══════════════════════════════════════════════════════════════════════
@@ -457,6 +470,15 @@ with tab_hist:
                 st.markdown("---")
 
         st.markdown("<br>", unsafe_allow_html=True)
-        if st.button("🗑️  Clear All History", type="secondary"):
-            save_history([])
-            st.rerun()
+        if is_admin:
+            st.markdown("<br>", unsafe_allow_html=True)
+            if st.button("🗑️  Clear All History", type="secondary"):
+                save_history([])
+                st.rerun()
+        else:
+            st.markdown("""
+            <div style='font-size:0.82rem;color:#9e9589;font-style:italic;margin-top:1rem'>
+                🔒 Clear All History is restricted to admin only.
+                Enter admin password in the sidebar to enable it.
+            </div>
+            """, unsafe_allow_html=True)
