@@ -243,7 +243,7 @@ with st.sidebar:
 
     if is_admin:
         st.markdown("<div style='font-size:0.75rem;color:#1e7e34'>✓ Admin mode active</div>", unsafe_allow_html=True)
-
+    st.write(dict(st.secrets))  # temporary debug line
 # ═══════════════════════════════════════════════════════════════════════
 # HERO
 # ═══════════════════════════════════════════════════════════════════════
